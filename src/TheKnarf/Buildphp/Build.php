@@ -9,7 +9,7 @@
 			return strtolower($name);
 		}
 
-		private function addTask($name, Buildtask $task) {
+		private function addTask($name, Task $task) {
 			$name = $this->processTaskName($name);
 			$this->tasks[$name] = $task;
 		}
@@ -17,11 +17,6 @@
 		private function getTask($name) {
 			$name = $this->processTaskName($name);
 			return $this->tasks[$name];
-		}
-
-		private function runTaskWithName($name) {
-			$task = $this->getTask($name);
-			$task(); 
 		}
 
 		private function runTaskDependencies($name) {
@@ -34,16 +29,19 @@
 
 		private function runDependingTasksAndThenTask($name) {
 			$this->runTaskDependencies($name);
-			$this->runTaskWithName($name);
+
+			// Run task with name: $name
+			$task = $this->getTask($name);
+			$task(); 
 		}
 
 		public function task($name, $depsOrFunc, $func=null) {
 			// If you only have 2 arguments, then the second argument is the function
 			if($func == null) {
-				$task = new Buildtask($depsOrFunc);
+				$task = new Task($depsOrFunc);
 			}
 			else {
-				$task = new Buildtask($func, $depsOrFunc);
+				$task = new Task($func, $depsOrFunc);
 			}
 
 			// Add the task to the task list
@@ -68,5 +66,10 @@
 			{
 				$this->runTask();		
 			}
+		}
+
+
+		public function __invoke() {
+			$this->run();
 		}
 	}

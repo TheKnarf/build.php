@@ -9,9 +9,9 @@
 		exec("./vendor/bin/phpdoc -d ./src -t ./docs");
 	});
 
-	$build->task("clear", function() {
-		echo "Clearing\n";
+	$build->task("clean", function() {
+		echo "Cleaning\n";
 		exec("rm -rf docs/");
 	});
 
-	$build->run();
+	$build();

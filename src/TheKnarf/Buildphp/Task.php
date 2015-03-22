@@ -1,7 +1,7 @@
 <?php 
 	namespace TheKnarf\Buildphp;
 
-	class Buildtask
+	class Task
 	{
 		private $dependencies = array();
 
