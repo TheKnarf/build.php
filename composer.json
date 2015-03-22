@@ -1,6 +1,7 @@
 {
     "name": "theknarf/build.php",
     "description": "A simple build system for php",
+    "license": "zlib",
     "authors": [
         {
             "name": "Frank Lyder Bredland",
