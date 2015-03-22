@@ -7,9 +7,9 @@
 
 		private $function;
 
-		public function __construct($func, $deps=array()) {
+		public function __construct(\Closure $func, $deps=array()) {
 			$this->dependencies = $deps;
-			$this->function = $func;
+			$this->function = $func->bindTo($this, $this);
 		}
 
 		public function __invoke() {
@@ -21,5 +21,10 @@
 
 		public function getDependencies() {
 			return $this->dependencies;
+		}
+
+		private function exec($command) {
+			echo "Executing: " . $command . "\n";
+			exec($command);
 		}
 	}
