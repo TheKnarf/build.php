@@ -3,24 +3,10 @@
 
 	class Build
 	{
-		private $tasks = array();
-
-		private function processTaskName($name) {
-			return strtolower($name);
-		}
-
-		private function addTask($name, Task $task) {
-			$name = $this->processTaskName($name);
-			$this->tasks[$name] = $task;
-		}
-
-		private function getTask($name) {
-			$name = $this->processTaskName($name);
-			return $this->tasks[$name];
-		}
+		private $tasks;
 
 		private function runTaskDependencies($name) {
-			$deps = $this->getTask($name)->getDependencies();
+			$deps = $this->tasks->getTask($name)->getDependencies();
 
 			foreach($deps as $dep) {
 				$this->runDependingTasksAndThenTask($dep);
@@ -31,8 +17,12 @@
 			$this->runTaskDependencies($name);
 
 			// Run task with name: $name
-			$task = $this->getTask($name);
+			$task = $this->tasks->getTask($name);
 			$task(); 
+		}
+
+		public function __construct() {
+			$this->tasks = new Tasklist();
 		}
 
 		public function task($name, $depsOrFunc, $func=null) {
@@ -45,11 +35,11 @@
 			}
 
 			// Add the task to the task list
-			$this->addTask($name, $task);
+			$this->tasks->addTask($name, $task);
 		}
 
 		public function runTask($name = "default") {
-			if(isset($this->tasks[$name])) {
+			if($this->tasks->taskExists($name)) {
 				return $this->runDependingTasksAndThenTask($name);
 			} else {
 				echo "No task with name ($name) found\n";
@@ -67,7 +57,6 @@
 				$this->runTask();		
 			}
 		}
-
 
 		public function __invoke() {
 			$this->run();
