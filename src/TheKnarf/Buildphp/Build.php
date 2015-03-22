@@ -1,5 +1,5 @@
 <?php 
-	namespace theknarf\build_php;
+	namespace TheKnarf\Buildphp;
 
 	class Build
 	{
