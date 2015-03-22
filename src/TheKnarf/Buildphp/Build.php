@@ -9,32 +9,23 @@
 			return strtolower($name);
 		}
 
-		private function addTask($name, $dep, $func) {
+		private function addTask($name, Buildtask $task) {
 			$name = $this->processTaskName($name);
-
-			$this->tasks[$name] = array(
-				"func" => $func,
-				"dep" => $dep
-			);
+			$this->tasks[$name] = $task;
 		}
 
-		private function getTaskFunction($name) {
+		private function getTask($name) {
 			$name = $this->processTaskName($name);
-			return $this->tasks[$name]['func'];
-		}
-
-		private function getTaskDep($name) {
-			$name = $this->processTaskName($name);
-			return $this->tasks[$name]['dep'];
+			return $this->tasks[$name];
 		}
 
 		private function runTaskWithName($name) {
-			$task = $this->getTaskFunction($name);
+			$task = $this->getTask($name);
 			$task(); 
 		}
 
 		private function runTaskDependencies($name) {
-			$deps = $this->getTaskDep($name);
+			$deps = $this->getTask($name)->getDependencies();
 
 			foreach($deps as $dep) {
 				$this->runDependingTasksAndThenTask($dep);
@@ -42,22 +33,21 @@
 		}
 
 		private function runDependingTasksAndThenTask($name) {
-			$name = $this->processTaskName($name);
-
 			$this->runTaskDependencies($name);
 			$this->runTaskWithName($name);
 		}
 
-		public function task($name, $depOrFunc, $func=null) {
+		public function task($name, $depsOrFunc, $func=null) {
 			// If you only have 2 arguments, then the second argument is the function
 			if($func == null) {
-				// Add the task to the task list
-				$this->addTask($name, array(), $depOrFunc);
+				$task = new Buildtask($depsOrFunc);
 			}
 			else {
-				// Add the task to the task list
-				$this->addTask($name, $depOrFunc, $func);
+				$task = new Buildtask($func, $depsOrFunc);
 			}
+
+			// Add the task to the task list
+			$this->addTask($name, $task);
 		}
 
 		public function runTask($name = "default") {
