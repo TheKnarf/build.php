@@ -12,4 +12,4 @@
 		echo "Hello\n";
 	});
 
-	$build->run();
+	$build();
