@@ -1,6 +1,8 @@
 <?php 
 	namespace TheKnarf\Buildphp;
 
+	use Colors\Color;
+
 	class Build
 	{
 		private $tasks;
@@ -17,6 +19,8 @@
 			$this->runTaskDependencies($name);
 
 			// Run task with name: $name
+			$c = new Color();
+			echo $c('Running task: ' . $name)->green()->bold() . PHP_EOL;
 			$task = $this->tasks->getTask($name);
 			$task(); 
 		}

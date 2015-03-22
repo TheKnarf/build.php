@@ -1,6 +1,8 @@
 <?php 
 	namespace TheKnarf\Buildphp;
 
+	use Colors\Color;
+
 	class Task
 	{
 		private $dependencies = array();
@@ -24,7 +26,9 @@
 		}
 
 		private function exec($command) {
-			echo "Executing: " . $command . "\n";
+			$c = new Color();
+			echo $c('Executing: ' . $command)->black()->highlight("white") . PHP_EOL;
+
 			exec($command);
 		}
 	}
