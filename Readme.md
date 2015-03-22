@@ -2,6 +2,8 @@
 
 A simple build system for PHP
 
+![Screen shot of build.php in use](screenshot.png)
+
 ## Copyright
 
 Copyright (c) <2015> <Frank Lyder Bredland>
