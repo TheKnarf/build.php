@@ -1,0 +1,19 @@
+{
+    "name": "theknarf/build.php",
+    "description": "A simple build system for php",
+    "authors": [
+        {
+            "name": "Frank Lyder Bredland",
+            "email": "fl@nyggen.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "TheKnarf\\build.php\\": "src"
+        }
+    }
+}
