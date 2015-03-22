@@ -4,6 +4,36 @@ A simple build system for PHP
 
 ![Screen shot of build.php in use](screenshot.png)
 
+## Usage
+
+Add to `composer.json` under `require-dev` to use.
+
+```
+{
+    "require-dev": {
+        "theknarf/build.php": "dev-master"
+    }
+}
+```
+
+Then you can create a build.php file and run `php build.php` to build.
+If you don't specify a task to run the default task is `default`.
+To specify a task run `php build.php taskname`.
+
+### Example build.php file
+
+```
+<?php
+require 'vendor/autoload.php';
+
+$build = new TheKnarf\Buildphp\Build();
+$build->task("default", array("composer"), function() {});
+$build->task('composer', function() {
+	$this->exec("composer install");
+});
+$build();
+```
+
 ## Copyright
 
 Copyright (c) 2015 - Frank Lyder Bredland
