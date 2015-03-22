@@ -1,10 +1,7 @@
 <?php
 
-	require 'vendor/autoload.php';
-	//require 'src/build.php';
-
+	require '../vendor/autoload.php';
 	
-
 	$build = new TheKnarf\Buildphp\Build();
 
 	$build->task("default", array("test"), function() {

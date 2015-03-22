@@ -1,15 +1,17 @@
 <?php
 
-	require '../vendor/autoload.php';
+	require 'vendor/autoload.php';
 	
 	$build = new TheKnarf\Buildphp\Build();
 
-	$build->task("default", array("test"), function() {
-		echo "Default\n";
+	$build->task("doc", function() {
+		echo "Building php api documentation\n";
+		exec("./vendor/bin/phpdoc -d ./src -t ./docs");
 	});
 
-	$build->task("test", function() {
-		echo "Hello\n";
+	$build->task("clear", function() {
+		echo "Clearing\n";
+		exec("rm -rf docs/");
 	});
 
 	$build->run();
