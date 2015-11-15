@@ -25,10 +25,14 @@
 			return $this->dependencies;
 		}
 
-		private function exec($command) {
+		private function exec($command, $output=true) {
 			$c = new Color();
 			echo $c('Executing: ' . $command)->black()->highlight("white") . PHP_EOL;
 
-			exec($command);
+			if($output) {
+				system($command);
+			} else {
+				exec($command);
+			}
 		}
 	}
