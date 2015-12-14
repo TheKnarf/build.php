@@ -23,4 +23,8 @@
 			$name = $this->processTaskName($name);
 			return isset($this->tasks[$name]);
 		}
+
+		public function allTaskNames() {
+			return array_keys($this->tasks);
+		}
 	}

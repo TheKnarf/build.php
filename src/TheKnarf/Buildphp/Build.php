@@ -43,6 +43,14 @@
 		}
 
 		public function runTask($name = "default") {
+			// List all tasks for autocompletion
+			if($name == "--cmplt") {
+				$taskNames = $this->tasks->allTaskNames();
+				echo implode("\n", $taskNames) . "\n";
+
+				return;
+			}
+
 			if($this->tasks->taskExists($name)) {
 				return $this->runDependingTasksAndThenTask($name);
 			} else {
